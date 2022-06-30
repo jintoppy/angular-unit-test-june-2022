@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AppService } from './app.service';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-unit-test';
+  user?:User;
+
+  constructor(private appService: AppService){
+
+  }
+
+  ngOnInit(){
+    this.user = this.appService.getUser('u1');
+  }
+
+  changeTitle(){
+    this.title = 'title-changed';
+  }
 }
