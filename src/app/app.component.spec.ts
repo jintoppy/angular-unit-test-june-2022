@@ -2,12 +2,12 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { By } from '@angular/platform-browser';
 import { AppService } from './app.service';
+import { of } from 'rxjs';
 
-class MockedAppService extends AppService {
-  public override getUser(){
-    return {username: 'u1', name: 'abc'};
-  }
+const MockedAppService = {
+  getUser: () => of({username: 'Bret', name: 'abc', id: 1, email: 'test@gmail.com'})
 }
+
 
 describe('AppComponent', () => {
   let app:AppComponent;
@@ -19,7 +19,7 @@ describe('AppComponent', () => {
         AppComponent
       ],
       providers: [
-        { provide: AppService, useClass: MockedAppService }
+        { provide: AppService, useValue: MockedAppService }
       ]
     }).compileComponents();
     
@@ -38,7 +38,7 @@ describe('AppComponent', () => {
   });
 
   it('should have user object set', () => {
-    expect(app.user).toEqual({username: 'u1', name: 'abc'});
+    expect(app.user).toEqual({username: 'Bret', name: 'abc', id: 1, email: 'test@gmail.com'});
   });
 
   it('should render title', () => {    

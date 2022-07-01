@@ -16,7 +16,10 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    this.user = this.appService.getUser('u1');
+    this.appService.getUser('Bret')
+      .subscribe((user?: User) => {
+        this.user = user;
+      })
   }
 
   changeTitle(){
